@@ -60,5 +60,6 @@ textStyle = [
         ("letter-spacing", "1.1px"),
         ("text-align", "left"),
         ("color", "#979797"),
-        ("user-select", "none")
+        ("user-select", "none"),
+        ("cursor", "pointer")
     ]
