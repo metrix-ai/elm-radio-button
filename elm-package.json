@@ -7,8 +7,8 @@
         "src"
     ],
     "exposed-modules": [
-        "Metrix.RadioButton.Html",
-        "Metrix.RadioButton.State",
+        "Metrix.RadioButton.Render",
+        "Metrix.RadioButton.Model",
         "Metrix.RadioButton.Update"
     ],
     "dependencies": {
