@@ -42,7 +42,7 @@ radioButton model index labelText =
     in
         li [
             Events.onClick (Message.ButtonSelected index),
-            style (textStyle ++ [("margin-top", "20px")])
+            style (textStyle ++ [("margin-top", "20px"), ("margin-right", "50px"), ("float", "left")])
         ] [bullet checked, text labelText]
 
 radioGroup : Model.Model -> Html Message.Message
