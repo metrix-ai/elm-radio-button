@@ -1,5 +1,5 @@
 module Metrix.RadioButton.Render exposing (..)
-
+{-| -}
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events as Events
@@ -42,7 +42,7 @@ radioButton model index labelText =
     in
         li [
             Events.onClick (Message.ButtonSelected index),
-            style (textStyle ++ [("margin-top", "20px"), ("margin-right", "50px"), ("float", "left")])
+            style (textStyle ++ [("margin-right", "50px"), ("float", "left")])
         ] [bullet checked, text labelText]
 
 radioGroup : Model.Model -> Html Message.Message
