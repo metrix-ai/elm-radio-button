@@ -59,5 +59,6 @@ textStyle = [
         ("line-height", "13px"),
         ("letter-spacing", "1.1px"),
         ("text-align", "left"),
-        ("color", "#979797")
+        ("color", "#979797"),
+        ("user-select", "none")
     ]
