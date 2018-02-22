@@ -45,7 +45,7 @@ radioButton model index labelText =
             Events.onClick (Message.ButtonSelected index),
             Events.onMouseEnter (Message.ButtonEnter index),
             Events.onMouseLeave (Message.ButtonLeave),
-            style ((textStyle hover) ++ [("margin-right", "50px"), ("float", "left")])
+            style ((textStyle hover checked) ++ [("margin-right", "50px"), ("float", "left")])
         ] [bullet checked, text labelText]
 
 radioGroup : Model.Model -> Html Message.Message
@@ -54,24 +54,28 @@ radioGroup model =
     List.indexedMap (radioButton model) |>
     ul [style [("list-style-type", "none")]]
 
-textStyle : Bool -> List (String, String)
-textStyle hover =
-  [
-      ("font-family", "DINPro"),
-      ("font-size", "14px"),
-      ("font-weight", "400"),
-      ("line-height", "13px"),
-      ("letter-spacing", "1.1px"),
-      ("text-align", "left"),
-      ("user-select", "none"),
-      ("cursor", "pointer")
-  ] ++
-  if hover
-    then
-      [
-          ("color", "#4a90e2")
-      ]
-    else
-      [
-          ("color", "#979797")
-      ]
+textStyle : Bool -> Bool -> List (String, String)
+textStyle hover checked =
+  let
+    hoverColor =
+      if hover
+        then
+          [("color", "#4a90e2")]
+        else
+          [("color", "#979797")]
+    checkedWeight =
+      if checked
+        then
+          [("font-weight", "700"), ("color", "#4a90e2")]
+        else
+          [("font-weight", "400")]
+  in
+    [
+        ("font-family", "DINPro"),
+        ("font-size", "14px"),
+        ("line-height", "13px"),
+        ("letter-spacing", "1.1px"),
+        ("text-align", "left"),
+        ("user-select", "none"),
+        ("cursor", "pointer")
+    ] ++ hoverColor ++ checkedWeight
