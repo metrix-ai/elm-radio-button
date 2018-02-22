@@ -55,7 +55,7 @@ textStyle : List (String, String)
 textStyle = [
         ("font-family", "DINPro"),
         ("font-size", "14px"),
-        ("font-weight", "300"),
+        ("font-weight", "400"),
         ("line-height", "13px"),
         ("letter-spacing", "1.1px"),
         ("text-align", "left"),
