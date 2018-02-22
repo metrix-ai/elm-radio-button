@@ -37,29 +37,41 @@ bulletInnerDot color =
 
 radioButton : Model.Model -> Int -> String -> Html Message.Message
 radioButton model index labelText =
-    let 
+    let
         checked = Just index == model.selectedIndex
+        hover = Just index == model.hoveredIndex
     in
         li [
             Events.onClick (Message.ButtonSelected index),
-            style (textStyle ++ [("margin-right", "50px"), ("float", "left")])
+            Events.onMouseEnter (Message.ButtonEnter index),
+            Events.onMouseLeave (Message.ButtonLeave),
+            style ((textStyle hover) ++ [("margin-right", "50px"), ("float", "left")])
         ] [bullet checked, text labelText]
 
 radioGroup : Model.Model -> Html Message.Message
 radioGroup model =
     model.labels |>
     List.indexedMap (radioButton model) |>
-    ul [style [("list-style-type", "none")]] 
+    ul [style [("list-style-type", "none")]]
 
-textStyle : List (String, String)
-textStyle = [
-        ("font-family", "DINPro"),
-        ("font-size", "14px"),
-        ("font-weight", "400"),
-        ("line-height", "13px"),
-        ("letter-spacing", "1.1px"),
-        ("text-align", "left"),
-        ("color", "#979797"),
-        ("user-select", "none"),
-        ("cursor", "pointer")
-    ]
+textStyle : Bool -> List (String, String)
+textStyle hover =
+  [
+      ("font-family", "DINPro"),
+      ("font-size", "14px"),
+      ("font-weight", "400"),
+      ("line-height", "13px"),
+      ("letter-spacing", "1.1px"),
+      ("text-align", "left"),
+      ("user-select", "none"),
+      ("cursor", "pointer")
+  ] ++
+  if hover
+    then
+      [
+          ("color", "#4a90e2")
+      ]
+    else
+      [
+          ("color", "#979797")
+      ]
