@@ -72,16 +72,68 @@ radioButton model index labelText =
         [ Events.onClick (Message.ButtonSelected index)
         , Events.onMouseEnter (Message.ButtonEnter index)
         , Events.onMouseLeave Message.ButtonLeave
-        , style (textStyle hover checked ++ [ ( "margin-right", "50px" ), ( "float", "left" ) ])
+        , style
+            (textStyle hover checked
+                ++ [ ( "padding-top", "18px" )
+                   ]
+            )
         ]
         [ bullet checked hover, text labelText ]
 
 
-radioGroup : Model.Model -> Html Message.Message
-radioGroup model =
+radioGroup : Model.Model -> Bool -> Html Message.Message
+radioGroup model isInline =
+    let
+        additionalStyles =
+            if isInline then
+                [ ( "display", "flex" )
+                , ( "justify-content", "space-between" )
+                ]
+            else
+                []
+    in
     model.labels
         |> List.indexedMap (radioButton model)
-        |> ul [ style [ ( "list-style-type", "none" ) ] ]
+        |> ul
+            [ style <|
+                [ ( "list-style-type", "none" )
+                , ( "margin", "0" )
+                , ( "padding", "0" )
+                , ( "width", "inherit" )
+                ]
+                    ++ additionalStyles
+            ]
+
+
+radioGroupTwoRows : Model.Model -> Bool -> Html Message.Message
+radioGroupTwoRows model isInline =
+    let
+        isEven n =
+            n % 2 == 0
+
+        len =
+            List.length model.labels // 2
+
+        labels =
+            model.labels
+                |> List.indexedMap (radioButton model)
+
+        topLabels =
+            List.take len labels
+
+        bottomLabels =
+            List.drop len labels
+    in
+    ul
+        [ style <|
+            [ ( "list-style-type", "none" )
+            , ( "margin", "0" )
+            , ( "padding", "0" )
+            , ( "width", "inherit" )
+            , ( "display", "flex" )
+            ]
+        ]
+        ([ div [ style [ ( "padding-right", "120px" ) ] ] topLabels ] ++ [ div [] [] ] ++ [ div [] bottomLabels ])
 
 
 textStyle : Bool -> Bool -> List ( String, String )
