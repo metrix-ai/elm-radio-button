@@ -9,11 +9,11 @@ import Metrix.RadioButton.Message as Message
 import Metrix.RadioButton.Model as Model
 
 
-checkedColor =
+themeColor =
     "#4a90e2"
 
 
-uncheckedColor =
+defaultColor =
     "#979797"
 
 
@@ -22,9 +22,9 @@ bullet checked hover =
     let
         color =
             if checked || hover then
-                checkedColor
+                themeColor
             else
-                uncheckedColor
+                defaultColor
     in
     div
         [ style
@@ -73,7 +73,7 @@ radioButton model index labelText =
         , Events.onMouseEnter (Message.ButtonEnter index)
         , Events.onMouseLeave Message.ButtonLeave
         , style
-            (textStyle hover checked
+            (textStyle hover checked model.blueWhenChecked
                 ++ [ ( "padding-top", "18px" )
                    ]
             )
@@ -136,8 +136,8 @@ radioGroupTwoRows model isInline =
         ([ div [ style [ ( "padding-right", "120px" ) ] ] topLabels ] ++ [ div [] [] ] ++ [ div [] bottomLabels ])
 
 
-textStyle : Bool -> Bool -> List ( String, String )
-textStyle hover checked =
+textStyle : Bool -> Bool -> Bool -> List ( String, String )
+textStyle hover checked blueWhenChecked =
     let
         hoverColor =
             if hover then
@@ -145,9 +145,15 @@ textStyle hover checked =
             else
                 [ ( "color", "#979797" ) ]
 
+        checkedColor =
+            if blueWhenChecked then
+                themeColor
+            else
+                defaultColor
+
         checkedWeight =
             if checked then
-                [ ( "font-weight", "700" ), ( "color", "#4a90e2" ) ]
+                [ ( "font-weight", "700" ), ( "color", checkedColor ) ]
             else
                 [ ( "font-weight", "400" ) ]
     in
